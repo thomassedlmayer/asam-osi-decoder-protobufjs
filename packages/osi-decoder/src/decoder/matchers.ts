@@ -3,6 +3,7 @@
 
 import type { ChannelMeta } from "../../../lichtblick-suite-placeholder/src";
 import {
+  OSI_DEFAULT_CONTRACT_VERSION,
   OSI_CHANNEL_VERSION_METADATA_KEY,
   OSI_GROUND_TRUTH_SCHEMA_NAME,
   OSI_SENSOR_DATA_SCHEMA_NAME,
@@ -10,12 +11,26 @@ import {
   OSI_PROTOBUF_ENCODING,
 } from "../../../osi-contract/src";
 
+function majorVersion(version: string): number | undefined {
+  const majorPart = version.trim().split(".", 1)[0];
+  if (!majorPart) {
+    return undefined;
+  }
+  const major = Number(majorPart);
+  return Number.isInteger(major) && major >= 0 ? major : undefined;
+}
+
+const COMPATIBLE_OSI_MAJOR_VERSION = majorVersion(OSI_DEFAULT_CONTRACT_VERSION);
+
 export function isCompatibleOsiVersion(version: string | undefined): boolean {
   if (!version) {
     return true;
   }
-  // Start strictness here once you know your actual compatibility matrix.
-  return version.startsWith("3.");
+  const sourceMajor = majorVersion(version);
+  if (sourceMajor == undefined || COMPATIBLE_OSI_MAJOR_VERSION == undefined) {
+    return false;
+  }
+  return sourceMajor === COMPATIBLE_OSI_MAJOR_VERSION;
 }
 
 export function matchesGroundTruthChannel(meta: Readonly<ChannelMeta>): boolean {
