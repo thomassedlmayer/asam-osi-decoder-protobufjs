@@ -1,9 +1,11 @@
 // SPDX-FileCopyrightText: Copyright (C) 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)<lichtblick@bmwgroup.com>
 // SPDX-License-Identifier: MPL-2.0
 
+/* eslint-disable no-restricted-syntax */
+
+import { spawnSync } from "node:child_process";
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { spawnSync } from "node:child_process";
 
 function collectProtoFiles(dir) {
   const result = [];
@@ -73,7 +75,9 @@ const pbtsResult = spawnSync(process.execPath, pbtsArgs, {
 });
 
 if (pbtsResult.status !== 0) {
-  console.warn(`pbts failed (exit code ${pbtsResult.status}); falling back to tsc declaration emit.`);
+  console.warn(
+    `pbts failed (exit code ${pbtsResult.status}); falling back to tsc declaration emit.`,
+  );
   const tscArgs = [
     tscBin,
     "--allowJs",

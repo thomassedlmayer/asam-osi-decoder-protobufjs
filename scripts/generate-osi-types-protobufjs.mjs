@@ -1,9 +1,11 @@
 // SPDX-FileCopyrightText: Copyright (C) 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)<lichtblick@bmwgroup.com>
 // SPDX-License-Identifier: MPL-2.0
 
+/* eslint-disable no-restricted-syntax */
+
 import { mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
-import { dirname, isAbsolute, resolve } from "node:path";
 import { createRequire } from "node:module";
+import { dirname, isAbsolute, resolve } from "node:path";
 
 const require = createRequire(import.meta.url);
 const protobufjs = require("protobufjs");
@@ -135,7 +137,9 @@ rawLines.push(
 );
 rawLines.push(`// SPDX-License-Identifier: MPL-2.0`);
 rawLines.push("");
-rawLines.push(`export type LongLike = number | bigint | { toNumber(): number; toString(): string };`);
+rawLines.push(
+  `export type LongLike = number | bigint | { toNumber(): number; toString(): string };`,
+);
 rawLines.push("");
 
 for (const enumType of collectedEnums.values()) {
@@ -165,7 +169,9 @@ for (const type of collectedTypes.values()) {
 }
 
 for (const type of collectedTypes.values()) {
-  rawLines.push(`export type ${symbolName(type.fullName)} = ${variantTypeName(type.fullName, "raw")};`);
+  rawLines.push(
+    `export type ${symbolName(type.fullName)} = ${variantTypeName(type.fullName, "raw")};`,
+  );
 }
 rawLines.push("");
 rawLines.push(`export type GroundTruthRaw = ${variantTypeName(".osi3.GroundTruth", "raw")};`);
