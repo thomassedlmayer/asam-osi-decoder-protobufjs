@@ -126,23 +126,32 @@ export function convertSensorViewToSceneUpdate(msg: osi3.SensorView): SceneUpdat
   try {
     const groundTruth = msg.global_ground_truth;
     const timestamp = toFoxgloveTime(groundTruth?.timestamp ?? msg.timestamp);
-    const movingObjects = groundTruth?.moving_object ?? [];
+    const movingObjects = groundTruth?.moving_object; // as osi3.MovingObject[];
 
-    /* if (
-      msg.global_ground_truth?.moving_object?.length != undefined &&
-      msg.global_ground_truth.moving_object.length > 0
-    ) {
+    for (const mo of movingObjects ?? []) {
+      /* Avoid repeated existence checks by manually casting to normalized type.
+      The protobufjs runtime object provides defaulted values for scalar types
+      if fields are unset. */
+      //const position = mo.base?.position as osi3.Vector3d;
+      //const x = position.x;
+      //const y = position.y;
+      //const z = position.z;
+
+      /* Checking if field was actually intentionally set or not: */
+      const hasX = Object.prototype.hasOwnProperty.call(mo.base?.position ?? {}, "x");
       const hasTailLight = Object.prototype.hasOwnProperty.call(
-        msg.global_ground_truth.moving_object[0]?.vehicle_classification?.light_state ?? {},
+        mo.vehicle_classification?.light_state ?? {},
         "tail_light",
       );
-
       console.info(
-        `tail light value: "${typeof msg.global_ground_truth.moving_object[0]?.vehicle_classification?.light_state?.tail_light}" "${msg.global_ground_truth.moving_object[0]?.vehicle_classification?.light_state?.tail_light}" - hasTailLight: ${hasTailLight}`,
+        `moving_object_${(mo.id as osi3.Identifier).value}: hasTailLight: ${hasTailLight}; hasX: ${hasX}`,
       );
-    } */
 
-    const entities: SceneEntity[] = movingObjects.map((movingObject, index) => {
+      /* Output if tail_light was not set but position.x was set:
+      moving_object_0: hasTailLight: false; hasX: true */
+    }
+
+    const entities: SceneEntity[] = (movingObjects ?? []).map((movingObject, index) => {
       const idValue =
         movingObject.id?.value != undefined ? movingObject.id.value.toString() : String(index);
       const base = movingObject.base;
