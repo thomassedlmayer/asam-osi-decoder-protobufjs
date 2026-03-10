@@ -1,0 +1,36 @@
+{
+  "name": "@asam-osi-adapter/osi-converters",
+  "displayName": "ASAM OSI Converters",
+  "publisher": "Lichtblick",
+  "version": "0.0.1",
+  "private": true,
+  "description": "ASAM OSI contract-based converter extension.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/extension.js",
+  "types": "./src/index.ts",
+  "keywords": [
+    "lichtblick",
+    "asam",
+    "osi",
+    "converter",
+    "extension"
+  ],
+  "scripts": {
+    "build": "lichtblick-extension build",
+    "lichtblick:prepublish": "lichtblick-extension build --mode production",
+    "local-install": "lichtblick-extension install",
+    "package": "lichtblick-extension package"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@foxglove/schemas": "^1.6.2",
+    "@lichtblick/suite": "^1.5.0",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
+    "create-lichtblick-extension": "^1.0.0",
+    "typescript": "5.9.3"
+  }
+}

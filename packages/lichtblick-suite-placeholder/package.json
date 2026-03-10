@@ -1,0 +1,10 @@
+{
+  "name": "@asam-osi-adapter/lichtblick-suite-placeholder",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Prototype placeholder types intended for future integration into @lichtblick/suite.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts"
+}

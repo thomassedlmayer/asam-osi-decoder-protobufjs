@@ -1,0 +1,32 @@
+{
+  "name": "asam-osi-decoder",
+  "description": "Workspace for ASAM OSI decoder/converter packages and type generation.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "setup:osi-submodule": "git submodule add https://github.com/OpenSimulationInterface/open-simulation-interface.git open-simulation-interface",
+    "update:osi-submodule": "git submodule update --init --recursive open-simulation-interface",
+    "prepare:osi-version": "node ./scripts/prepare-osi-version.mjs",
+    "generate:osi-runtime": "node ./scripts/generate-osi-runtime-protobufjs.mjs",
+    "generate:osi-types:plain": "node ./scripts/generate-osi-types-protobufjs.mjs",
+    "generate:osi-types": "yarn prepare:osi-version && yarn generate:osi-runtime && yarn generate:osi-types:plain",
+    "build:decoder": "yarn workspace @asam-osi-decoder/osi-decoder-protobufjs build",
+    "build:converters": "yarn workspace @asam-osi-adapter/osi-converters build",
+    "build:extensions": "yarn build:decoder && yarn build:converters",
+    "package:decoder": "yarn workspace @asam-osi-decoder/osi-decoder-protobufjs package",
+    "package:converters": "yarn workspace @asam-osi-adapter/osi-converters package",
+    "package:extensions": "yarn package:decoder && yarn package:converters"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "protobufjs": "^7.5.4",
+    "protobufjs-cli": "^1.1.3",
+    "typescript": "5.9.3"
+  }
+}

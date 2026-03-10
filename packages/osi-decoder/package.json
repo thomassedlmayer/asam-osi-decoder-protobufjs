@@ -1,0 +1,36 @@
+{
+  "name": "@asam-osi-decoder/osi-decoder-protobufjs",
+  "displayName": "ASAM OSI Decoder (protobufjs)",
+  "publisher": "Lichtblick",
+  "version": "0.0.1",
+  "private": true,
+  "description": "ASAM OSI decoder extension (deserialization and contract publication).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/extension.js",
+  "types": "./src/index.ts",
+  "keywords": [
+    "lichtblick",
+    "asam",
+    "osi",
+    "decoder",
+    "extension"
+  ],
+  "scripts": {
+    "build": "lichtblick-extension build",
+    "lichtblick:prepublish": "lichtblick-extension build --mode production",
+    "local-install": "lichtblick-extension install",
+    "package": "lichtblick-extension package"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@lichtblick/suite": "^1.5.0",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
+    "create-lichtblick-extension": "^1.0.0",
+    "protobufjs": "^7.2.5",
+    "typescript": "5.9.3"
+  }
+}
