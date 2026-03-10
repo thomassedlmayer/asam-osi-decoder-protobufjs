@@ -37,8 +37,6 @@ export function createSensorViewDecoder(
       return decodeSensorView(bytes, meta, decoder);
     },
     toJson(msg, meta) {
-      // eslint-disable-next-line no-restricted-syntax
-      console.info("toJson called");
       return decoder.toJson(msg, { schemaName: meta.schemaName });
     },
     validateInput(msg): msg is osi3.SensorView {

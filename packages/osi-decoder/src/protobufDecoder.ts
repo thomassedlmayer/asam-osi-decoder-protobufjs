@@ -15,6 +15,22 @@ type DecodeMeta = {
   schemaData?: Uint8Array;
 };
 
+type ProtobufConversionOptions = {
+  defaults?: boolean;
+};
+
+type ProtobufToObjectFn = (message: unknown, options?: ProtobufConversionOptions) => unknown;
+
+function hasProtobufToObject(message: unknown): message is {
+  constructor: { toObject: ProtobufToObjectFn };
+} {
+  if (typeof message !== "object" || message == undefined) {
+    return false;
+  }
+  const maybeConstructor = (message as { constructor?: { toObject?: unknown } }).constructor;
+  return typeof maybeConstructor?.toObject === "function";
+}
+
 function toView(data: ArrayBufferView): Uint8Array {
   return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
 }
@@ -26,7 +42,6 @@ type DecodeStats = {
 };
 
 const LOG_EVERY_N_MESSAGES = 500;
-const LOG_EVERY_N_JSON_PROJECTIONS = 100;
 
 function nowMs(): number {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -54,15 +69,6 @@ export class ProtobufRuntimeDecoder {
           3,
         )} maxMs=${stats.maxMs.toFixed(3)}`,
       );
-    }
-  }
-
-  #recordToJson(schemaName: string): void {
-    const count = (this.#jsonProjectionCountBySchema[schemaName] ?? 0) + 1;
-    this.#jsonProjectionCountBySchema[schemaName] = count;
-
-    if (count % LOG_EVERY_N_JSON_PROJECTIONS === 0) {
-      console.info(`[asam-osi-decoder-protobufjs][toJson] schema=${schemaName} count=${count}`);
     }
   }
 
@@ -146,9 +152,10 @@ export class ProtobufRuntimeDecoder {
     );
   }
 
-  public toJson(message: unknown, meta: DecodeMeta): unknown {
-    this.#recordToJson(meta.schemaName ?? "<unknown>");
-    // protobufjs path already produces plain JS objects, so identity projection is enough.
+  public toJson(message: unknown, _meta: DecodeMeta): unknown {
+    if (hasProtobufToObject(message)) {
+      return message.constructor.toObject(message, { defaults: true });
+    }
     return message;
   }
 }

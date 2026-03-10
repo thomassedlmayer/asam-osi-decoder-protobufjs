@@ -128,7 +128,7 @@ export function convertSensorViewToSceneUpdate(msg: osi3.SensorView): SceneUpdat
     const timestamp = toFoxgloveTime(groundTruth?.timestamp ?? msg.timestamp);
     const movingObjects = groundTruth?.moving_object ?? [];
 
-    if (
+    /* if (
       msg.global_ground_truth?.moving_object?.length != undefined &&
       msg.global_ground_truth.moving_object.length > 0
     ) {
@@ -140,7 +140,7 @@ export function convertSensorViewToSceneUpdate(msg: osi3.SensorView): SceneUpdat
       console.info(
         `tail light value: "${typeof msg.global_ground_truth.moving_object[0]?.vehicle_classification?.light_state?.tail_light}" "${msg.global_ground_truth.moving_object[0]?.vehicle_classification?.light_state?.tail_light}" - hasTailLight: ${hasTailLight}`,
       );
-    }
+    } */
 
     const entities: SceneEntity[] = movingObjects.map((movingObject, index) => {
       const idValue =
@@ -197,15 +197,7 @@ export function convertSensorViewToSceneUpdate(msg: osi3.SensorView): SceneUpdat
       entities,
     };
   } catch (error) {
-    console.error(
-      "[asam-osi-converters][sensorView] convertSensorViewToSceneUpdate failed",
-      error,
-      {
-        hasGlobalGroundTruth: msg.global_ground_truth != undefined,
-        movingObjectIsArray: Array.isArray(msg.global_ground_truth?.moving_object),
-        modelReference: msg.global_ground_truth?.model_reference,
-      },
-    );
+    console.error("[asam-osi-converters][sensorView] convertSensorViewToSceneUpdate failed", error);
     throw error;
   }
 }
