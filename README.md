@@ -37,7 +37,7 @@ Note:
 
 Generated OSI protobuf TS code is emitted into:
 
-- `packages/osi-contract/src/gen`
+- `packages/osi-contract/src/gen-protobufjs`
 
 Source comes from local submodule:
 

@@ -18,7 +18,7 @@ Key files:
 What to put here:
 - Generic host contract types (`ProvidedMessageContract`, `RequiredMessageContract`)
 - OSI-specific constants (`OSI_GROUND_TRUTH_PROVIDED_MESSAGE_CONTRACT`, version requirement helpers)
-- Generated protobuf types/schema exports in `packages/osi-contract/src/gen`
+- Generated protobuf types/schema exports in `packages/osi-contract/src/gen-protobufjs`
 
 Consumer example:
 
