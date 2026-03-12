@@ -38,13 +38,15 @@ Without a shared contract package, decoder and converter code can drift:
 - Conversion algorithms (converter concern)
 - Host API implementation logic (Lichtblick concern)
 
-## Interaction with placeholder suite API types
+## Contract type ownership
 
-Host-generic contract types (`ProvidedMessageContract`, `RequiredMessageContract`) are defined in:
+Host-generic contract types (`ProvidedMessageContract`, `RequiredMessageContract`) belong in the
+host API (`@lichtblick/suite`).
 
-- `packages/lichtblick-suite-placeholder/src/index.ts`
+Current state in this prototype:
 
-`osi-contract` consumes those types to define OSI-specific contracts.
+- `src/contractTypes.ts` is an internal compatibility shim.
+- It is intentionally not part of the public `osi-contract` export surface.
 
 ## Current GroundTruth contract exports
 
@@ -66,7 +68,7 @@ Additional contract sets:
 To avoid repeating `{ id, version, schema, providedMessageContract, requiredMessageContract }`
 for every OSI type, use:
 
-- `createOsiMessageContract(...)` from `src/contractFactory.ts`
+- internal `createOsiMessageContract(...)` from `src/contractFactory.ts`
 
 It generates:
 

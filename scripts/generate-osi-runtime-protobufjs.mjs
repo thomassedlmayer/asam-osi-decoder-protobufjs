@@ -9,7 +9,7 @@ import { resolve } from "node:path";
 
 function collectProtoFiles(dir) {
   const result = [];
-  for (const entry of readdirSync(dir)) {
+  for (const entry of readdirSync(dir).sort()) {
     const fullPath = resolve(dir, entry);
     const stat = statSync(fullPath);
     if (stat.isDirectory()) {
@@ -18,7 +18,7 @@ function collectProtoFiles(dir) {
       result.push(fullPath);
     }
   }
-  return result;
+  return result.sort((a, b) => a.localeCompare(b));
 }
 
 const repoRoot = resolve(process.cwd());

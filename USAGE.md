@@ -19,6 +19,7 @@ What to put here:
 - Generic host contract types (`ProvidedMessageContract`, `RequiredMessageContract`)
 - OSI-specific constants (`OSI_GROUND_TRUTH_PROVIDED_MESSAGE_CONTRACT`, version requirement helpers)
 - Generated protobuf runtime (`osi.js`) and typings (`osi.d.ts`) in `packages/osi-contract/src/gen-protobufjs`
+- Generated OSI version constant (`osiVersion.ts`) in `packages/osi-contract/src`
 
 Consumer example:
 

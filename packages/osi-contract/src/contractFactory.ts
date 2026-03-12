@@ -1,12 +1,10 @@
 // SPDX-FileCopyrightText: Copyright (C) 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)<lichtblick@bmwgroup.com>
 // SPDX-License-Identifier: MPL-2.0
 
-import type {
-  ProvidedMessageContract,
-  RequiredMessageContract,
-} from "../../lichtblick-suite-placeholder/src";
+import type { ProvidedMessageContract, RequiredMessageContract } from "./contractTypes";
+import { OSI_VERSION } from "./osiVersion";
 
-export const OSI_DEFAULT_CONTRACT_VERSION = "3.8.0";
+export const OSI_DEFAULT_CONTRACT_VERSION = OSI_VERSION;
 export const OSI_PROTOBUF_ENCODING = "protobuf";
 export const OSI_CHANNEL_VERSION_METADATA_KEY = "net.asam.osi.trace.channel.osi_version";
 

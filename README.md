@@ -48,6 +48,7 @@ Commands:
 ```sh
 yarn update:osi-submodule
 yarn generate:osi-types
+yarn check:osi-types
 ```
 
 ## Build and package

@@ -13,6 +13,8 @@
     "prepare:osi-version": "node ./scripts/prepare-osi-version.mjs",
     "generate:osi-runtime": "node ./scripts/generate-osi-runtime-protobufjs.mjs",
     "generate:osi-types": "yarn prepare:osi-version && yarn generate:osi-runtime",
+    "check:osi-types": "node ./scripts/check-osi-generated.mjs",
+    "build:contract": "yarn workspace @asam-osi-adapter/osi-contract build",
     "build:decoder": "yarn workspace @asam-osi-decoder/osi-decoder-protobufjs build",
     "build:converters": "yarn workspace @asam-osi-adapter/osi-converters build",
     "build:extensions": "yarn build:decoder && yarn build:converters",
