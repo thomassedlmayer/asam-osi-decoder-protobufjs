@@ -30,8 +30,7 @@ Without a shared contract package, decoder and converter code can drift:
 
 - OSI-specific contract constants (for example GroundTruth contract metadata)
 - Contract requirement helpers for consumers/converters
-- Payload type aliases (for example `OsiGroundTruthPayload`)
-- Generated protobuf code in `src/gen`
+- Generated protobuf runtime and typings in `src/gen-protobufjs`
 
 ## What does not belong here
 
@@ -56,8 +55,6 @@ From `src/groundTruthContract.ts`:
 - `OSI_GROUND_TRUTH_SCHEMA_NAME`
 - `OSI_GROUND_TRUTH_PROVIDED_MESSAGE_CONTRACT`
 - `OSI_GROUND_TRUTH_REQUIRED_MESSAGE_CONTRACT`
-- `OsiGroundTruthPayload`
-- `OsiGroundTruthSchema`
 
 Additional contract sets:
 

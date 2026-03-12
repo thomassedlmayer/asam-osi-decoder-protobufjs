@@ -35,7 +35,7 @@ Note:
 
 ## Type generation
 
-Generated OSI protobuf TS code is emitted into:
+Generated OSI protobuf runtime and typings are emitted into:
 
 - `packages/osi-contract/src/gen-protobufjs`
 
